@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 import { FaCaretDown, FaCaretRight, FaCaretUp, FaMinus, FaPlus } from "react-icons/fa";
 import { FaRupeeSign } from "react-icons/fa";
-// import ReactImageMagnify from 'react-image-magnify';
 
 export default function Product() {
 
@@ -104,29 +103,6 @@ export default function Product() {
           <div className=" overflow-y-scroll scroll  h-[110vh]  ">
             <div className="slider-container w-[100%]  mx-auto  ">
               <div className=" w-[80%] mx-auto z-[20]">
-                {/* <ReactImageMagnify {...{
-                  smallImage: {
-                    alt: 'Wristwatch by Ted Baker London',
-                    isFluidWidth: true,
-                    src: img,
-                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
-                  },
-                  largeImage: {
-                    isFluidWidth: true,
-                    src: img,
-                    width: 1800,
-                    height: 1400
-                  },
-                  enlargedImageContainerDimensions: {
-                    width: '200%',
-                    height: '100%'
-                },
-                  isHintEnabled : true,
-                  enlargedImageContainerClassName: "zoom",
-                  // enlargedImageClassName: "zoom",
-                  
-
-                }} /> */}
 
                 <div className="">
                   <img src={img} alt="" />

@@ -15,25 +15,7 @@ export default function Product() {
 
   const baseUrl = '/images/'
 
-  const settings = {
-    customPaging: function (i = 1) {
 
-
-      return (
-        <a>
-          <img src={`${baseUrl}/Slide${i + 1}.jpg`} className='shadow rounded-2xl' />
-        </a>
-      );
-    },
-    dots: true,
-    dotsClass: "slick-dots slick-thumb",
-    infinite: false,
-    speed: 0,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    touchMove: false,
-    arrows: false,
-  };
 
   var settings2 = {
     dots: true,
@@ -345,7 +327,7 @@ export default function Product() {
 
           <div className="flex justify-between  ">
             <span className='flex items-center uppercase'> mrp <FaRupeeSign /> 28</span>
-            <button type="button" className=" uppercase font-bold focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">add to cart</button>
+            <button type="button" className=" uppercase  focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">add to cart</button>
           </div>
 
           <h1 className='font-medium text-[10px] text-gray-600'>(Inclusive of all taxes)</h1>

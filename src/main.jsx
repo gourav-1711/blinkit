@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from './Search.jsx';
 import Product from './Product.jsx';
 import ItemList from './ItemList.jsx';
+import PageNotFound from './PageNotFound.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,8 +17,9 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<App />}></Route>
         <Route path='/s/' element={<Search />} ></Route>
-        <Route path='/prn/' element={<Product />} ></Route>
+        <Route path='/product/:category/:id' element={<Product />} ></Route>
         <Route path='/item/' element={<ItemList />}></Route>
+        <Route path='*' element={<PageNotFound />} ></Route>
       </Routes>
 
     </BrowserRouter>

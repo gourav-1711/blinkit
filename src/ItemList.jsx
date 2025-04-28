@@ -1,9 +1,84 @@
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Header from '../Comman/Header'
 import Footer from '../Comman/Footer'
 import { Link } from 'react-router-dom'
 
+import axios from 'axios';
+import { FaRupeeSign } from 'react-icons/fa';
+
+
+
+
 export default function ItemList() {
+
+    let [Data, setData] = useState([])
+
+    let [cat, setCat] = useState([])
+
+
+    // for highlight
+    let [catItem, setCatItem] = useState(-1)
+
+
+
+
+    let api;
+
+    let DataFun = (v = "", i) => {
+
+        //li color change
+
+        //dynamic products
+
+        let catfun = (value, id) => {
+            if (catItem == id) {
+                setCatItem(id)
+            }
+        }
+        catfun()
+
+        if (v == "") {
+            api = "https://dummyjson.com/products"
+        }
+        else {
+            api = `https://dummyjson.com/products/category/${v}`
+        }
+
+        // all products
+        axios.get(api)
+            .then((ress) => {
+                console.log(ress.data.products);
+                setData(ress.data.products)
+
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
+
+        // category work
+
+        let catApi = 'https://dummyjson.com/products/category-list'
+        axios.get(catApi)
+            .then((ress2) => {
+                setCat(ress2.data)
+
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
+
+
+    }
+    useEffect(() => {
+        DataFun()
+    }, [])
+
     return (
         <>
             <div className="item">
@@ -14,556 +89,93 @@ export default function ItemList() {
 
             </div>
             <div className="max-w-[1300px] w-[95%] mx-auto h-[80vh]  bg-[#F6F6F9]  ">
-                <div className="w-full h-full grid grid-cols-[15%_auto] md:grid-cols-[12%_auto] lg:grid-cols-[7%_auto]">
+                <div className="w-full h-full grid grid-cols-[15%_auto] md:grid-cols-[12%_auto] lg:grid-cols-[15%_auto]">
                     <div className=" overflow-y-scroll px-[5px] grid grid-cols-1 gap-[10px]">
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/1.jpeg" alt="" />
-                                <h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
+
+
+
+                        {cat.length > 0 ? cat.map((v, i) => {
+
+                            return (
+
+                                <div className="box" key={i}>
+
+                                    <h1 className={`${i == catItem ? "text-blue-500" : ""}  font-bold text-[16px] capitalize cursor-pointer`} onClick={() => DataFun(v, i)}> {v}  </h1>
+
+                                </div>
+                            )
+                        })
+                            :
+                            <div className="w-[50%]  ">
+                                <div className="container mx-auto w-[50%]">
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                    <div className="ball"></div>
+                                </div>
                             </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/2.jpeg" alt="" />
-                                <h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/3.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/4.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/5.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/6.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/7.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/8.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/9.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/10.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
-                        <Link to='/item/'>
-                            <div className="box">
-                                <img src="/images/slider/11.jpeg" alt="" /><h1 className=' font-bold text-[12px] capitalize text-center'> milk </h1>
-                            </div>
-                        </Link>
+
+                        }
 
                     </div>
-                    <div className=" overflow-y-scroll">
-                        <div className=" px-[5px] py-[10px] desktop  grid grid-cols-2 lg:grid-cols-6 gap-[10px] lg:gap-[20px]  ">
-                            <Link to='/prn/'  >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/1.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/2.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/3.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/4.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/5.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/6.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/7.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/8.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/9.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/10.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/11.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/12.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/13.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/14.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/15.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/16.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/17.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to='/prn/' >
-                                <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px] cursor-pointer ">
-                                    <div className="">
-                                        <img src="/images/slider/18.jpeg" alt="" />
-                                    </div>
-                                    <h1 className='   flex items-center  '>
-                                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                                            8 mins
-                                        </p>
-                                    </h1>
-                                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                                        amul tazza toned fresh milk
-                                    </h1>
-                                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                                        1 ltr
-                                    </h1>
-                                    <div className=" flex justify-between items-center">
-                                        <h1 className='text-[rgb(31,31,31)] font-medium text-[14px]'>
-                                            $55
-                                        </h1>
-                                        <button className=" uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                                            add
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
 
+
+                    <div className=" overflow-y-scroll">
+                        <div className=" px-[5px] py-[10px] desktop  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
+
+
+                            {
+                                Data.length > 0 ?
+                                    Data.map((v, i) => {
+                                        return (
+
+                                            <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px]  " key={i}>
+                                                <Link to={`/product/${v.category}/${v.id}`}  >
+                                                    <div className="cursor-pointor">
+                                                        <img src={v.thumbnail} alt="" />
+                                                    </div>
+                                                </Link>
+                                                <h1 className='   flex items-center  '>
+                                                    <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
+                                                    <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
+                                                        8 mins
+                                                    </p>
+                                                </h1>
+                                                <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
+                                                    {v.title}
+                                                </h1>
+                                                <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
+                                                    <span className=' capitalize'>stock :</span>  {v.stock}
+                                                </h1>
+                                                <div className=" flex justify-between items-center">
+                                                    <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
+                                                        <FaRupeeSign /> {v.price}
+                                                    </h1>
+                                                    <button className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                                                        add
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+
+                                    })
+                                    :
+                                    <div className="w-[100%] absolute top-[100%] left-[0%]  ">
+                                        <div className="container mx-auto">
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                            <div className="ball"></div>
+                                        </div>
+                                    </div>
+
+                            }
 
 
                         </div>
@@ -580,10 +192,10 @@ export default function ItemList() {
                         The richness of milk as nature’s perfect food is demonstrated by its high content of essential nutrients, variety in cooking, and most importantly its indispensable role in sustaining life. Milk has been more than just a biological necessity for human consumption since it originated as an essential diet for young mammals.
                     </p>
                     <div className="text-[#666666] text-[15px] md:text-[24px] font-extrabold uppercase ">
-                    Composition:
+                        Composition:
                     </div>
                     <p className="text-[#666666] text-[12px] md:text-[15px] capitalize py-[35px]">
-                    Primarily, milk contains water, proteins, fats, carbohydrates, vitamins, and minerals that together determine its nutritive value and sensory properties. Water accounts for about 87% of the total volume of milk making it a major component. Proteins such as casein and whey contain all the necessary amino acids required for growth and development (Tungland & Meyer 2018). The lipid components contain saturated fats, monounsaturated fats, and polyunsaturated fats which are responsible for taste enhancement in milk but also act as carriers for fat-soluble vitamins including A, D, E and K among others. Primarily lactose is the principal carbohydrate providing an energy source while facilitating mineral absorption (Young et al., 2013). Besides these elements, there are other vital minerals such as calcium, phosphorus, potassium, and magnesium, which help to retain good muscle function, bone health processes along metabolic processes
+                        Primarily, milk contains water, proteins, fats, carbohydrates, vitamins, and minerals that together determine its nutritive value and sensory properties. Water accounts for about 87% of the total volume of milk making it a major component. Proteins such as casein and whey contain all the necessary amino acids required for growth and development (Tungland & Meyer 2018). The lipid components contain saturated fats, monounsaturated fats, and polyunsaturated fats which are responsible for taste enhancement in milk but also act as carriers for fat-soluble vitamins including A, D, E and K among others. Primarily lactose is the principal carbohydrate providing an energy source while facilitating mineral absorption (Young et al., 2013). Besides these elements, there are other vital minerals such as calcium, phosphorus, potassium, and magnesium, which help to retain good muscle function, bone health processes along metabolic processes
                     </p>
                 </div>
             </div>

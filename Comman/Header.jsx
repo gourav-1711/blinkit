@@ -46,7 +46,7 @@ export default function Header() {
                             <img src="/images/blinkit-logo_casestudy.png" className=' w-[65%] ' alt="" />
                         </div>
                     </Link>
-                    <div className="  py-[15px] text-center grid justify-center hover:bg-[rgba(240,240,240,0.42)] duration-500 ">
+                    <div className="address  py-[15px] text-center grid justify-center hover:bg-[rgba(240,240,240,0.42)] duration-500 ">
                         <h1 className='text-[18px] font-bold capitalize'>
                             delivery in 8 minutes
                         </h1>
@@ -65,7 +65,7 @@ export default function Header() {
                             <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
                         </div>
                     </div>
-                    <div className=" text-center py-[15px] relative  hover:bg-[rgba(240,240,240,0.42)] duration-500">
+                    <div className="dropdown text-center py-[15px] relative  hover:bg-[rgba(240,240,240,0.42)] duration-500">
                         <button onClick={dropdown} className='flex gap-[5px] items-center text-[20px] font-light capitalize mx-auto cursor-pointer '>
                             Account <span className='text-[18px]'> <FaSortDown /></span>
                         </button>

@@ -55,7 +55,7 @@ export default function Product() {
     axios.get(RelatedApi)
       .then((ress2) => {
         SetrelaData(ress2.data.products)
-        console.log(RelatedApi);
+        // console.log(RelatedApi);
 
 
 
@@ -64,7 +64,7 @@ export default function Product() {
 
 
 
-  console.log(relaData);
+  // console.log(relaData);
 
 
 
@@ -85,6 +85,7 @@ export default function Product() {
     slidesToShow: 6,
     slidesToScroll: 3,
     rows: 1,
+    // freePlay: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -142,7 +143,7 @@ export default function Product() {
     setDetails(!details)
   }
 
-  let setImg = ()=>{
+  let setImg = () => {
 
   }
 
@@ -165,7 +166,7 @@ export default function Product() {
               <div className=" w-[50%] mx-auto z-[20]">
 
                 <div className="">
-                  <img src={ProData.thumbnail} alt=""  />
+                  <img src={ProData.thumbnail} alt="" />
                 </div>
 
 
@@ -441,42 +442,55 @@ export default function Product() {
         <div className=" w-[98%] px-[20px] desktop   ">
 
           <Slider {...settings3} >
+            {
+              relaData.length < 0 ? 
+              <div className="hidden"></div>
+              :
+              <div className="hidden"></div>
+            }
+            
+            
 
             {
-              relaData.map((v, i) => {
-                return (
-                  <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px]  " key={i}>
-                    <Link to={`/product/${v.category}/${v.id}`}  >
-                      <div className="cursor-pointor">
-                        <img src={v.thumbnail} alt="" />
-                      </div>
-                    </Link>
-                    <h1 className='   flex items-center  '>
-                      <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
-                      <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
-                        8 mins
-                      </p>
-                    </h1>
-                    <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
-                      {v.title}
-                    </h1>
-                    <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
-                      <span className=' capitalize'>stock :</span>  {v.stock}
-                    </h1>
-                    <div className=" flex justify-between items-center">
-                      <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
-                        <FaRupeeSign /> {v.price}
+              relaData.length > 0 ?
+                relaData.map((v, i) => {
+                  return (
+                    <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px]  " key={i}>
+                      <Link to={`/product/${v.category}/${v.id}`}  >
+                        <div className="cursor-pointor">
+                          <img src={v.thumbnail} alt="" />
+                        </div>
+                      </Link>
+                      <h1 className='   flex items-center  '>
+                        <img src="/images/slider/15-mins.png" className='w-[6%] bg-[#a6a6a652] ' alt="" />
+                        <p className=" capitalize bg-[#b2b2b252] font-medium text-[9px]">
+                          8 mins
+                        </p>
                       </h1>
-                      <button className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
-                        add
-                      </button>
+                      <h1 className=' w-[90%] font-medium capitalize text-[13px] my-[10px]'>
+                        {v.title}
+                      </h1>
+                      <h1 className=' text-[rgb(102,_102,_102)] text-[12px]'>
+                        <span className=' capitalize'>stock :</span>  {v.stock}
+                      </h1>
+                      <div className=" flex justify-between items-center">
+                        <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
+                          <FaRupeeSign /> {v.price}
+                        </h1>
+                        <button className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                          add
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )
-              })
+                  )
+                })
+
+                :
+
+                ""
             }
 
-            
+
           </Slider>
 
 

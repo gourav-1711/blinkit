@@ -17,7 +17,7 @@ export default function ItemList() {
 
 
     // for highlight
-    let [catItem, setCatItem] = useState(-1)
+    let [liActive, setLiActive] = useState(null)
 
 
 
@@ -26,16 +26,11 @@ export default function ItemList() {
 
     let DataFun = (v = "", i) => {
 
-        //li color change
+
+        // li color change
+        setLiActive(i)
 
         //dynamic products
-
-        let catfun = (value, id) => {
-            if (catItem == id) {
-                setCatItem(id)
-            }
-        }
-        catfun()
 
         if (v == "") {
             api = "https://dummyjson.com/products"
@@ -89,7 +84,11 @@ export default function ItemList() {
 
             </div>
             <div className="max-w-[1300px] w-[95%] mx-auto h-[80vh]  bg-[#F6F6F9]  ">
-                <div className="w-full h-full grid grid-cols-[15%_auto] md:grid-cols-[12%_auto] lg:grid-cols-[15%_auto]">
+
+
+                <div className="w-full h-full grid grid-cols-[30%_auto] sm:grid-cols-[20%_auto] md:grid-cols-[15%_auto] lg:grid-cols-[15%_auto]">
+
+
                     <div className=" overflow-y-scroll px-[5px] grid grid-cols-1 gap-[10px]">
 
 
@@ -100,23 +99,13 @@ export default function ItemList() {
 
                                 <div className="box" key={i}>
 
-                                    <h1 className={`${i == catItem ? "text-blue-500" : ""}  font-bold text-[16px] capitalize cursor-pointer`} onClick={() => DataFun(v, i)}> {v}  </h1>
+                                    <h1 className={`${i == liActive ? "text-yellow-500 text-shadow-[0px_0px_2px_white] " : ""}  font-bold text-[16px] capitalize cursor-pointer hover:text-yellow-500`} onClick={() => DataFun(v, i)}> {v}  </h1>
 
                                 </div>
                             )
                         })
                             :
-                            <div className="w-[50%]  ">
-                                <div className="container mx-auto w-[50%]">
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                    <div className="ball"></div>
-                                </div>
-                            </div>
+                            <div className="loader"></div>
 
                         }
 
@@ -124,7 +113,7 @@ export default function ItemList() {
 
 
                     <div className=" overflow-y-scroll">
-                        <div className=" px-[5px] py-[10px] desktop  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
+                        <div className=" px-[30px] sm:px-[5px] py-[10px] desktop  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
 
 
                             {
@@ -163,17 +152,10 @@ export default function ItemList() {
 
                                     })
                                     :
-                                    <div className="w-[100%] absolute top-[100%] left-[0%]  ">
-                                        <div className="container mx-auto">
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                            <div className="ball"></div>
-                                        </div>
+                                    <div className="fixed top-2/4 left-3/6 ">
+                                        <div className="loader"></div>
                                     </div>
+                                    
 
                             }
 
@@ -183,7 +165,7 @@ export default function ItemList() {
 
                 </div>
             </div>
-            <div className="footer-2 bg-[#ffffff] max-w-[1300px] w-[95%] mx-auto shadow">
+            {/* <div className="footer-2 bg-[#ffffff] max-w-[1300px] w-[95%] mx-auto shadow">
                 <div className="w-[87%] mx-auto pt-[30px]">
                     <div className="text-[#666666] text-[15px] md:text-[24px] font-extrabold uppercase ">
                         Milk
@@ -192,13 +174,13 @@ export default function ItemList() {
                         The richness of milk as nature’s perfect food is demonstrated by its high content of essential nutrients, variety in cooking, and most importantly its indispensable role in sustaining life. Milk has been more than just a biological necessity for human consumption since it originated as an essential diet for young mammals.
                     </p>
                     <div className="text-[#666666] text-[15px] md:text-[24px] font-extrabold uppercase ">
-                        Composition:
+                        Description:
                     </div>
                     <p className="text-[#666666] text-[12px] md:text-[15px] capitalize py-[35px]">
                         Primarily, milk contains water, proteins, fats, carbohydrates, vitamins, and minerals that together determine its nutritive value and sensory properties. Water accounts for about 87% of the total volume of milk making it a major component. Proteins such as casein and whey contain all the necessary amino acids required for growth and development (Tungland & Meyer 2018). The lipid components contain saturated fats, monounsaturated fats, and polyunsaturated fats which are responsible for taste enhancement in milk but also act as carriers for fat-soluble vitamins including A, D, E and K among others. Primarily lactose is the principal carbohydrate providing an energy source while facilitating mineral absorption (Young et al., 2013). Besides these elements, there are other vital minerals such as calcium, phosphorus, potassium, and magnesium, which help to retain good muscle function, bone health processes along metabolic processes
                     </p>
                 </div>
-            </div>
+            </div> */}
 
 
             <Footer />

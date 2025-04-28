@@ -9,7 +9,7 @@ const Footer = () => {
   }
   return (
     <footer className="max-w-[1180px] mx-auto px-2 py-8 text-gray-700 mt-[20px]">
-      <div className=" w-full block lg:hidden ">
+      <div className=" w-full block lg:hidden  ">
         <img src="/images/light.png" alt="" />
       </div>
       <div className="block lg:hidden py-[20px] cursor-pointer" onClick={open}>

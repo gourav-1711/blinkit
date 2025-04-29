@@ -152,7 +152,7 @@ export default function ItemList() {
 
                                     })
                                     :
-                                    <div className="fixed top-2/4 left-3/6 ">
+                                    <div className=" fixed top-2/4 left-3/6 ">
                                         <div className="loader"></div>
                                     </div>
                                     

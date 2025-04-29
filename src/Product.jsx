@@ -8,6 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FaCaretDown, FaCaretRight, FaCaretUp, FaMinus, FaPlus } from "react-icons/fa";
 import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
+import ImageMagnifier from '../Comman/Magnify';
 
 export default function Product() {
 
@@ -21,11 +22,19 @@ export default function Product() {
 
   let [ProData, setProData] = useState([])
 
+
+  let [BigImg, setBigImg] = useState()
+  let [img, setImg] = useState([])
+
+
   let apiFun = () => {
 
     axios.get(api)
       .then((ress) => {
         setProData(ress.data);
+        setImg(ress.data.images)
+        setBigImg(ress.data.thumbnail)
+
 
 
       })
@@ -56,9 +65,6 @@ export default function Product() {
       .then((ress2) => {
         SetrelaData(ress2.data.products)
         // console.log(RelatedApi);
-
-
-
       })
   }
 
@@ -130,7 +136,8 @@ export default function Product() {
           slidesToShow: 1,
           slidesToScroll: 1,
           dots: false,
-          arrows: false
+          arrows: false,
+          variableWidth: true
         }
       }
     ]
@@ -143,9 +150,8 @@ export default function Product() {
     setDetails(!details)
   }
 
-  let setImg = () => {
 
-  }
+  // console.log(img);
 
   return (
     <>
@@ -163,21 +169,34 @@ export default function Product() {
 
           <div className=" overflow-y-scroll scroll  h-[110vh]  ">
             <div className="slider-container w-[100%]  mx-auto  ">
-              <div className=" w-[50%] mx-auto z-[20]">
+              <div className=" w-[100%] mx-auto z-[20] grid justify-center ">
 
-                <div className="">
-                  <img src={ProData.thumbnail} alt="" />
+                <div className="bigImg">
+                  <div div className="mb-8" >
+                    <ImageMagnifier
+                      src={BigImg}
+                      width={600}
+                      height={400}
+                      magnifierHeight={500}
+                      magnifierWidth={600}
+                      zoomLevel={3.5}
+                    />
+                  </div >
                 </div>
 
+                <div className="smallImgs grid grid-cols-6  w-[70%] mx-auto gap-[5px]">
+
+                  {
+                    img.length > 0 ?
+                      img.map((v, i) => {
+                        return (
+                          <img key={i} src={v} alt="" className=' cursor-pointer border' onClick={() => setBigImg(v)} />
+                        )
+                      })
+                      : <div className="loader"></div>
+                  }
 
 
-                <div className=" grid grid-cols-6  w-[100%] mx-auto">
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
-                  <img src={ProData.thumbnail} alt="" onClick={() => setImg(ProData.thumbnail)} className='cursor-pointer' />
                 </div>
               </div>
 
@@ -241,9 +260,9 @@ export default function Product() {
             </div>
             <div className="">
               <h1 className='   flex items-center  '>
-                <img src="/images/slider/15-mins.png" className='w-[5%] bg-[#F5F5F5] ' alt="" />
-                <p className=" capitalize bg-[#F5F5F5] font-medium text-[15px]">
-                  8 mins
+                <img src="/images/slider/15-mins.png" className='w-[4%] bg-[#F5F5F5] ' alt="" />
+                <p className=" capitalize bg-[#F5F5F5] font-medium text-[14px]">
+                  {ProData.shippingInformation}
                 </p>
               </h1>
 
@@ -319,41 +338,41 @@ export default function Product() {
       <div className="block lg:hidden">
         <div className="slider w-[50%] md:w-[60%] mx-auto   ">
           <Slider {...settings2}>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
-            <div>
-              <img src={ProData.thumbnail} alt="" />
-            </div>
+
+            {
+
+              img.map((v, i) => {
+                return (
+                  <div className="" key={i}>
+                    <img src={v} alt="" className='border-0' />
+                  </div>
+                )
+
+              })
+            }
+
 
           </Slider>
         </div>
         <div className=" px-[20px] ">
           <h1 className=' font-bold text-[23px] py-[10px]'> {ProData.title}</h1>
         </div>
-        <div className=" px-[20px]">
+        <div className="top pt-[10px] px-[20px] ">
+          <ul className=' flex gap-[5px] capitalize text-[13px] font-medium '>
+            <li> <Link to='/'>home / </Link> </li>
+            <li> <Link to='/item/'> products / </Link> </li>
+            <li>  {ProData.title}  </li>
+          </ul>
+        </div>
+        <div className=" px-[20px] py-[10px] ">
           <h1 className='   flex items-center  '>
-            <img src="/images/slider/15-mins.png" className='w-[5%] bg-[#F5F5F5] ' alt="" />
-            <p className=" capitalize bg-[#F5F5F5] font-medium text-[15px]">
-              8 mins
+            <img src="/images/slider/15-mins.png" className='w-[5%] ' alt="" />
+            <p className=" capitalize font-medium text-[15px]">
+              {ProData.shippingInformation}
             </p>
           </h1>
         </div>
-        {/* <div className="left">
-
-        </div> */}
+        \
         <div className="mt-[10px]  px-[20px]">
           <button className=' capitalize shadow text-gray-900 text-[14px] bg-[#F7FFF9] font-medium p-[6px_12px] rounded-[10px] border border-green-600 cursor-pointer '>
             {ProData.minimumOrderQuantity}
@@ -443,13 +462,13 @@ export default function Product() {
 
           <Slider {...settings3} >
             {
-              relaData.length < 0 ? 
-              <div className="hidden"></div>
-              :
-              <div className="hidden"></div>
+              relaData.length < 0 ?
+                <div className="hidden"></div>
+                :
+                <div className="hidden"></div>
             }
-            
-            
+
+
 
             {
               relaData.length > 0 ?

@@ -1,25 +1,29 @@
 "use client"
 
-    // use this 
-    // <div div className = "mb-8" >
+
+// use this
+    // <div div div className = "mb-8" >
     //     <ImageMagnifier
-    //         src="/placeholder.svg?height=400&width=600"
+    //         src={BigImg}
     //         width={600}
     //         height={400}
-    //         magnifierHeight={300}
-    //         magnifierWidth={300}
-    //         zoomLevel={2.5}
+    //         magnifierHeight={500}
+    //         magnifierWidth={600}
+    //         zoomLevel={3.5}
+    //         spotlightSize={120} // Size of the spotlight area
     //     />
-    //   </div >
+    //               </div >
+
 import { useState, useRef } from "react"
 
 export default function ImageMagnifier({
     src,
     width = 400,
     height = 300,
-    magnifierHeight = 300, // Increased from 150 to 300
-    magnifierWidth = 300, // Increased from 150 to 300
+    magnifierHeight = 300,
+    magnifierWidth = 300,
     zoomLevel = 2.5,
+    spotlightSize = 100, // Size of the spotlight area
 }) {
     const [showMagnifier, setShowMagnifier] = useState(false)
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -59,14 +63,30 @@ export default function ImageMagnifier({
                     alt="Magnifiable image"
                     className="w-full h-full object-cover"
                 />
+
+                {/* Semi-transparent overlay with spotlight effect */}
+                {showMagnifier && (
+                    <div
+                        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+                        style={{
+                            background: `radial-gradient(
+                circle ${spotlightSize}px at ${mousePosition.x}px ${mousePosition.y}px,
+                transparent 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.5) 51%,
+                rgba(0, 0, 0, 0.5) 100%
+              )`,
+                        }}
+                    />
+                )}
             </div>
 
             {showMagnifier && (
                 <div
-                    className=" fixed   z-[50] border-gray-300 bg-white  pointer-events-none"
+                    className=" fixed zoom top-[200px] left-0 z-[99] border border-gray-300 bg-white shadow-lg pointer-events-none"
                     style={{
                         // Position the magnifier to the right of the image
-                        left: `${width + 20}px`,
+                        left: `${width + 150}px`,
                         top: "0",
                         width: `${magnifierWidth}px`,
                         height: `${magnifierHeight}px`,
@@ -83,4 +103,3 @@ export default function ImageMagnifier({
         </div>
     )
 }
-

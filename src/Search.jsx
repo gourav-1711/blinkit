@@ -82,6 +82,10 @@ export default function Search() {
         Apifun()
     }, [sValue])
 
+    useEffect(()=>{
+       let input =  document.querySelector("s-input")
+    })
+
 
     return (
         <>
@@ -97,7 +101,7 @@ export default function Search() {
                         <div className="flex items-center py-[15px] border px-[10px] rounded-[18px] active:border-1  bg-[#fcfcfc] relative  ">
                             <IoSearchSharp className=' text-[27px] ' />
 
-                            <input type="" placeholder='search anything' value={sValue} onChange={type} className=' outline-0 border-0 ms-2  w-full relative capitalize ' />
+                            <input type="" autoFocus placeholder='search anything s-input' value={sValue} onChange={type} className=' outline-0 border-0 ms-2  w-full relative capitalize ' />
 
 
                             {/* <p className=' sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>

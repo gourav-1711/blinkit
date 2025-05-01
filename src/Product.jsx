@@ -169,17 +169,18 @@ export default function Product() {
 
           <div className=" overflow-y-scroll scroll  h-[110vh]  ">
             <div className="slider-container w-[100%]  mx-auto  ">
-              <div className=" w-[100%] mx-auto z-[20] grid justify-center ">
+              <div className=" w-[100%] mx-auto z-[10] grid justify-center ">
 
                 <div className="bigImg">
-                  <div div className="mb-8" >
-                    <ImageMagnifier
+                  <div  className="mb-8 mx-auto flex justify-center " >
+                    <ImageMagnifier 
                       src={BigImg}
-                      width={600}
-                      height={400}
+                      width={500}
+                      height={500}
                       magnifierHeight={500}
                       magnifierWidth={600}
-                      zoomLevel={3.5}
+                      zoomLevel={2.5}
+                      spotlightSize={140} // Size of the spotlight area
                     />
                   </div >
                 </div>
@@ -247,7 +248,7 @@ export default function Product() {
           </div>
 
 
-          <div className=" px-[40px] z-10 ">
+          <div className=" px-[40px]  ">
             <div className="top pt-[40px] ">
               <ul className=' flex gap-[5px] capitalize text-[13px] font-medium '>
                 <li> <Link to='/'>home / </Link> </li>

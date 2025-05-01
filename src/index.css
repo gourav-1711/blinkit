@@ -93,7 +93,11 @@
 }
 
 .active {
-    display: block !important;
+    /* display: block !important;
+     */
+     opacity: 1;
+     visibility: visible;
+     transition: 0.4s;
 }
 
 header .offcanvas::-webkit-scrollbar {
@@ -139,4 +143,8 @@ header .offcanvas::-webkit-scrollbar {
     to {
         transform: rotate(1turn)
     }
+}
+
+.zoom{
+    top: 15% !important;
 }

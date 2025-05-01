@@ -5,7 +5,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import '/src/index.css'
 import { RiAccountCircleLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
-import {  FiInfo } from "react-icons/fi"
+import { FiInfo } from "react-icons/fi"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 import { RxCross1 } from "react-icons/rx";
 
@@ -13,33 +13,37 @@ import { RxCross1 } from "react-icons/rx";
 export default function Header() {
 
     let [offCanvas, setOffCan] = useState(false)
-    let offCan = ()=>{
-        setOffCan(true)        
+    let offCan = () => {
+        setOffCan(true)
     }
-    let closefn = ()=>{
-        setOffCan(false)  
+    let closefn = () => {
+        setOffCan(false)
         setdrop(false)
     }
 
-    let [count,setCount] = useState(1)
-    let inc = ()=>{
-        setCount(count+1)
+    let [count, setCount] = useState(1)
+    let inc = () => {
+        setCount(count + 1)
     }
-    let dec = ()=>{
-        if(count>1){
-            setCount(count-1)
+    let dec = () => {
+        if (count > 1) {
+            setCount(count - 1)
         }
     }
 
-    let [drop , setdrop] = useState(false)
+    let [drop, setdrop] = useState(false)
 
-    let dropdown =()=>{
+    let dropdown = () => {
         setdrop(!drop)
 
     }
     return (
-        <>
-            <header className={` max-w-full w-full hidden lg:block border border-[#c7c7c77e] sticky top-0 bg-[white]  ${drop ? "z-[60]" : "z-[30]"} `}>
+        <> 
+        {/* dropdown overlay */}
+            <div className={`  overlay fixed w-full h-screen top-0 bg-[#00000090] invisible opacity-0 cursor-pointer  ${drop ? "active z-[30] " : ""}  ${offCanvas ? "active z-[30]" : ""} `} onClick={closefn}></div>
+
+
+            <header className={` max-w-full w-full hidden lg:block border border-[#c7c7c77e] sticky top-0 bg-[white]  ${drop ? "z-[60]" : "z-[100]"} `}>
                 <nav className=" grid  grid-cols-[14%_20%_auto_12%_12%] gap-[10px] items-center ">
                     <Link to='/'>
                         <div className="flex justify-center items-center border-r border-[#c7c7c781] py-[10px]  hover:bg-[rgba(240,240,240,0.42)] duration-500 ">
@@ -58,7 +62,7 @@ export default function Header() {
                         <div className="flex items-center py-[15px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
                             <IoSearchSharp className=' text-[27px] ' />
                             <Link to='/s/'>
-                                <input type="" className=' outline-0 border-0 ms-2  w-full relative ' />
+                                <input type="" className=' outline-0 border-0 ms-2  w-[500px] relative ' />
 
                             </Link>
                             <p className=' sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
@@ -69,13 +73,20 @@ export default function Header() {
                         <button onClick={dropdown} className='flex gap-[5px] items-center text-[20px] font-light capitalize mx-auto cursor-pointer '>
                             Account <span className='text-[18px]'> <FaSortDown /></span>
                         </button>
-                        
-                        <div className={` z-[49] absolute h-[300px] w-[200px] right-0 bg-[white] top-[100%] ${drop ? "block" : "hidden"}  `}>
+
+                        {/* dropdown */}
+                        <div className={` z-[49] absolute h-[300px] w-[200px] right-0 bg-[white] text-left top-[100%] p-[5px_20px] capitalize ${drop ? "block" : "hidden"} rounded-2xl  `}>
                             <div className="">
-                                <ul>
-                                    <li>order</li>
-                                    <li>address</li>
-                                    <li>number</li>
+                                <h1 className=' text-[17px] text-gray-700 font-bold '>my account</h1>
+                                <h2 className=' text-[13px] font-[390] text-gray-600 '>8387840848</h2>
+                                <ul className=' text-[14px] text-gray-600 pt-[15px] border-spacing-y-2.5 space-y-2.5 '>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>my order</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '> saved address</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>number</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>e gift cards</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>faq</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>account privacy</li>
+                                    <li className=' hover:bg-gray-200 duration-100 font-[350] '>log out</li>
                                 </ul>
                             </div>
                         </div>
@@ -86,11 +97,12 @@ export default function Header() {
                         </button>
                     </div>
                 </nav>
-                
-                <div className={`  overlay fixed w-full h-screen top-0 bg-[#00000090] hidden cursor-pointer z-40 ${offCanvas ? "active" : ""} ${drop ? "active" : ""} `} onClick={closefn}></div>
 
 
-                <div className={`z-50 offcanvas absolute right-0 top-0 w-[30%] h-screen bg-white overflow-y-scroll hidden ${offCanvas ? "active" : ""}  `}>
+                {/* off canvas */}
+                {/* <div className={`  overlay fixed w-full h-screen top-0 bg-[#00000090] invisible opacity-0 cursor-pointer  ${offCanvas ? "active z-[100]" : ""}  `} onClick={closefn}></div> */}
+
+                <div className={`z-[100] offcanvas absolute right-0 top-0 w-[30%] h-screen bg-white overflow-y-scroll invisible opacity-0 ${offCanvas ? "active" : ""}   `}>
                     <div className="flex justify-between items-center p-4 bg-white ">
                         <h1 className="text-[18px] font-bold text-gray-800">My Cart</h1>
                         <button onClick={closefn} className="text-gray-800 text-[25px] cursor-pointer">
@@ -126,11 +138,11 @@ export default function Header() {
 
                                 <div className="flex items-center bg-green-600 text-white rounded-md">
                                     <button className="px-1 py-1 text-white cursor-pointer" aria-label="Decrease quantity" onClick={dec}>
-                                        <AiOutlineMinus  />
+                                        <AiOutlineMinus />
                                     </button>
                                     <span className="px-1 py-1"> {count} </span>
                                     <button className="px-1 py-1 text-white cursor-pointer" aria-label="Increase quantity" onClick={inc}>
-                                        <AiOutlinePlus  />
+                                        <AiOutlinePlus />
                                     </button>
                                 </div>
                             </div>
@@ -150,7 +162,7 @@ export default function Header() {
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <span className="text-gray-700 text-[16px]">Delivery charge</span>
-                                        <FiInfo  className="text-gray-400" />
+                                        <FiInfo className="text-gray-400" />
                                     </div>
                                     <span className="font-medium text-[16px]">₹25</span>
                                 </div>
@@ -158,7 +170,7 @@ export default function Header() {
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <span className="text-gray-700 text-[16px]">Handling charge</span>
-                                        <FiInfo  className="text-gray-400" />
+                                        <FiInfo className="text-gray-400" />
                                     </div>
                                     <span className="font-medium text-[16px]">₹2</span>
                                 </div>
@@ -194,10 +206,10 @@ export default function Header() {
                         </div>
                     </div>
 
-                    
+
                 </div>
-               
-                
+
+
             </header>
 
             <header className="mobile z-50 block lg:hidden sticky top-0 bg-[white] shadow-[0px_0px_5px_1px_gray] pb-[10px] pt-[10px] ">

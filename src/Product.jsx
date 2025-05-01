@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Comman/Header'
-import Footer from '../Comman/Footer'
+import Header from './Comman/Header'
+import Footer from './Comman/Footer'
 
 import Slider from "react-slick";
 import { Link, useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FaCaretDown, FaCaretRight, FaCaretUp, FaMinus, FaPlus } from "react-icons/fa";
 import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
-import ImageMagnifier from '../Comman/Magnify';
+import ImageMagnifier from './Comman/Magnify';
 
 export default function Product() {
 

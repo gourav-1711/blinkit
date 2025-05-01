@@ -10,6 +10,7 @@ import Search from './Search.jsx';
 import Product from './Product.jsx';
 import ItemList from './ItemList.jsx';
 import PageNotFound from './PageNotFound.jsx';
+import Cart from './Cart.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,7 +20,9 @@ createRoot(document.getElementById('root')).render(
         <Route path='/s/' element={<Search />} ></Route>
         <Route path='/product/:category/:id' element={<Product />} ></Route>
         <Route path='/item/' element={<ItemList />}></Route>
+        <Route path='/cart' element={<Cart/>} ></Route>
         <Route path='*' element={<PageNotFound />} ></Route>
+
       </Routes>
 
     </BrowserRouter>

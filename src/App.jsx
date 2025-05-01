@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../Comman/Header'
-import Footer from '../Comman/Footer'
-import Slider from '../Comman/Slide'
+import Header from './Comman/Header'
+import Footer from './Comman/Footer'
+import Slider from './Comman/Slide'
 import { Link } from 'react-router-dom'
 
 

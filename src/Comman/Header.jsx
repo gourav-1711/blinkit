@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { FaSortDown } from 'react-icons/fa'
+import { FaShoppingBag, FaSortDown } from 'react-icons/fa'
 import { IoSearchSharp } from 'react-icons/io5'
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdLibraryBooks, MdOutlineShoppingCart } from "react-icons/md";
 import '/src/index.css'
 import { RiAccountCircleLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { FiInfo } from "react-icons/fi"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 import { RxCross1 } from "react-icons/rx";
+import { GiScooter } from 'react-icons/gi';
 
 
 export default function Header() {
@@ -38,8 +39,8 @@ export default function Header() {
 
     }
     return (
-        <> 
-        {/* dropdown overlay */}
+        <>
+            {/* dropdown overlay */}
             <div className={`  overlay fixed w-full h-screen top-0 bg-[#00000090] invisible opacity-0 cursor-pointer  ${drop ? "active z-[30] " : ""}  ${offCanvas ? "active z-[30]" : ""} `} onClick={closefn}></div>
 
 
@@ -59,15 +60,17 @@ export default function Header() {
                         </p>
                     </div>
                     <div className="  search overflow-hidden ">
-                        <div className="flex items-center py-[15px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
-                            <IoSearchSharp className=' text-[27px] ' />
-                            <Link to='/s/'>
+                        <Link to='/s/'>
+                            <div className="flex items-center py-[15px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
+                                <IoSearchSharp className=' text-[27px] ' />
+
                                 <input type="" className=' outline-0 border-0 ms-2  w-[500px] relative ' />
 
-                            </Link>
-                            <p className=' sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
-                            <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
-                        </div>
+
+                                <p className=' sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
+                                <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
+                            </div>
+                        </Link>
                     </div>
                     <div className="dropdown text-center py-[15px] relative  hover:bg-[rgba(240,240,240,0.42)] duration-500">
                         <button onClick={dropdown} className='flex gap-[5px] items-center text-[20px] font-light capitalize mx-auto cursor-pointer '>
@@ -99,10 +102,11 @@ export default function Header() {
                 </nav>
 
 
-                {/* off canvas */}
-                {/* <div className={`  overlay fixed w-full h-screen top-0 bg-[#00000090] invisible opacity-0 cursor-pointer  ${offCanvas ? "active z-[100]" : ""}  `} onClick={closefn}></div> */}
+
 
                 <div className={`z-[100] offcanvas absolute right-0 top-0 w-[30%] h-screen bg-white overflow-y-scroll invisible opacity-0 ${offCanvas ? "active" : ""}   `}>
+
+
                     <div className="flex justify-between items-center p-4 bg-white ">
                         <h1 className="text-[18px] font-bold text-gray-800">My Cart</h1>
                         <button onClick={closefn} className="text-gray-800 text-[25px] cursor-pointer">
@@ -154,14 +158,16 @@ export default function Header() {
                             <div className="space-y-1">
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
-                                        <span className=" text-[16px] text-gray-700">Items total</span>
+                                        <span><MdLibraryBooks /></span>
+                                        <span className=" text-[14px] font-bold text-gray-700"> Items total</span>
                                     </div>
                                     <span className=" text-[16px] font-medium">₹60</span>
                                 </div>
 
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-gray-700 text-[16px]">Delivery charge</span>
+                                        <span><GiScooter /></span>
+                                        <span className="text-gray-700 text-[14px] font-bold">Delivery charge</span>
                                         <FiInfo className="text-gray-400" />
                                     </div>
                                     <span className="font-medium text-[16px]">₹25</span>
@@ -169,7 +175,8 @@ export default function Header() {
 
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-gray-700 text-[16px]">Handling charge</span>
+                                        <span><FaShoppingBag /></span>
+                                        <span className="text-gray-700 text-[14px] font-bold ">Handling charge</span>
                                         <FiInfo className="text-gray-400" />
                                     </div>
                                     <span className="font-medium text-[16px]">₹2</span>
@@ -206,6 +213,18 @@ export default function Header() {
                         </div>
                     </div>
 
+                    <div className="bg-white w-full right-0  p-[20px] ">
+                        <Link to='/cart'>
+                            <div className="  cursor-pointer capitalize  bg-green-600  rounded-2xl py-[5px] flex justify-between text-white items-center px-[20px] ">
+                                <div className="total font-bold flex flex-col items-center">
+                                    <div className="">89</div>
+                                    <div className=" font-light">total</div>
+                                </div>
+                                <div className="">proceed to pay</div>
+                            </div>
+                        </Link>
+                    </div>
+
 
                 </div>
 
@@ -216,14 +235,14 @@ export default function Header() {
                 <nav className='  '>
                     <div className="flex justify-between">
                         <div className="  px-[20px] py-[5px]   hover:bg-[rgba(240,240,240,0.42)] duration-500 ">
-                            <h1 className='text-[16px] font-bold capitalize'>
+                            <h1 className=' text-[14px] lg:text-[16px] font-bold capitalize'>
                                 delivery in 8 minutes
                             </h1>
                             <p className="flex  items-center text-[12px] md:text-[15px] capitalize  overflow-hidden  ">
                                 b62 pocket b south city sector 30 haryana 122027 india <FaSortDown />
                             </p>
                         </div>
-                        <div className=" px-[20px] py-[20px] text-[35px] ">
+                        <div className=" px-[20px] md:py-[20px] text-[35px] ">
                             <RiAccountCircleLine />
                         </div>
                     </div>

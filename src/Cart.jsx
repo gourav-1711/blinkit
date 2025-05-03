@@ -25,6 +25,9 @@ export default function Cart() {
     }
 
 
+    // cart
+    let {myCart , setMyCart} = useContext(MyContext)
+
 
     return (
         <>
@@ -58,6 +61,8 @@ export default function Cart() {
 
                                 {/* product details */}
                             <div className="products">
+
+                                
 
                                 {/* item 1 */}
                                 <div className="flex items-center justify-between py-2.5">

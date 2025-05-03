@@ -43,7 +43,7 @@ export default function ItemList() {
         // all products
         axios.get(api)
             .then((ress) => {
-                console.log(ress.data.products);
+                // console.log(ress.data.products);
                 setData(ress.data.products)
 
 

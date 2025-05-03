@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 
@@ -10,7 +10,8 @@ import { FaCaretDown, FaCaretRight, FaCaretUp, FaMinus, FaPlus } from "react-ico
 import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
 import ImageMagnifier from './Comman/Magnify';
-import Notification from './Comman/Notification';
+import { MyContext } from './Context/ContextProvider';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Product() {
 
@@ -154,10 +155,47 @@ export default function Product() {
 
 
 
+  // cart function
+
+  let { myCart, setMyCart } = useContext(MyContext)
+
+
+  let cartObj = {
+    id: ProData.id,
+    image: ProData.thumbnail,
+    title: ProData.title,
+    quantity: 1,
+
+  }
+
+
+  let addCart = () => {
+
+    myCart.push(cartObj)
+    myCart.filter((value) => {
+      if (value.id == cartObj.id) {
+        console.log(value.id, cartObj.id);
+
+      }
+      else {
+        
+        toast.success("Wow so easy!")
+
+      }
+    })
+
+    console.log(myCart);
+
+
+
+
+  }
+
+
   return (
     <>
 
-
+      <ToastContainer />
 
       <Header />
 
@@ -289,7 +327,7 @@ export default function Product() {
               </button> */}
 
               <h1 className='font-medium text-[13px] py-[10px] text-gray-600'>(Inclusive of all taxes)</h1>
-              <button onClick={Notifiy} className=' uppercase  shadow text-green-700 text-[15px] upp bg-[#F7FFF9] font-medium p-[4px_20px] rounded-[10px] border border-green-600 cursor-pointer '>
+              <button onClick={addCart} className=' uppercase  shadow text-green-700 text-[15px] upp bg-[#F7FFF9] font-medium p-[4px_20px] rounded-[10px] border border-green-600 cursor-pointer '>
                 add
               </button>
             </div>

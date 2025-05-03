@@ -3,6 +3,7 @@ import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 import Slider from './Comman/Slide'
 import { Link } from 'react-router-dom'
+import CartBtn from './Comman/CartBtn'
 
 
 export default function App() {
@@ -363,6 +364,8 @@ export default function App() {
             <h1 className=' capitalize text-[15px] font-medium '>cleaning tools</h1>
           </div>
         </div>
+
+        <CartBtn/>
 
       </section>
 

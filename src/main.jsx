@@ -11,20 +11,23 @@ import Product from './Product.jsx';
 import ItemList from './ItemList.jsx';
 import PageNotFound from './PageNotFound.jsx';
 import Cart from './Cart.jsx';
+import ContextProvider from './Context/ContextProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />}></Route>
-        <Route path='/s/' element={<Search />} ></Route>
-        <Route path='/product/:category/:id' element={<Product />} ></Route>
-        <Route path='/item/' element={<ItemList />}></Route>
-        <Route path='/cart' element={<Cart/>} ></Route>
-        <Route path='*' element={<PageNotFound />} ></Route>
+    <ContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}></Route>
+          <Route path='/s/' element={<Search />} ></Route>
+          <Route path='/product/:category/:id' element={<Product />} ></Route>
+          <Route path='/item/' element={<ItemList />}></Route>
+          <Route path='/cart' element={<Cart />} ></Route>
+          <Route path='*' element={<PageNotFound />} ></Route>
 
-      </Routes>
+        </Routes>
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </ContextProvider>
   </StrictMode>,
 )

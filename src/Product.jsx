@@ -4,11 +4,13 @@ import Footer from './Comman/Footer'
 
 import Slider from "react-slick";
 import { Link, useParams } from 'react-router-dom';
+import CartBtn from './Comman/CartBtn'
 
 import { FaCaretDown, FaCaretRight, FaCaretUp, FaMinus, FaPlus } from "react-icons/fa";
 import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
 import ImageMagnifier from './Comman/Magnify';
+import Notification from './Comman/Notification';
 
 export default function Product() {
 
@@ -151,7 +153,6 @@ export default function Product() {
   }
 
 
-  // console.log(img);
 
   return (
     <>
@@ -160,7 +161,7 @@ export default function Product() {
 
       <Header />
 
-
+      {/* desktop page */}
       <div className="max-w-[1300px] desktop  mx-auto hidden lg:block">
 
 
@@ -172,8 +173,8 @@ export default function Product() {
               <div className=" w-[100%] mx-auto z-[10] grid justify-center ">
 
                 <div className="bigImg">
-                  <div  className="mb-8 mx-auto flex justify-center " >
-                    <ImageMagnifier 
+                  <div className="mb-8 mx-auto flex justify-center " >
+                    <ImageMagnifier
                       src={BigImg}
                       width={500}
                       height={500}
@@ -288,7 +289,7 @@ export default function Product() {
               </button> */}
 
               <h1 className='font-medium text-[13px] py-[10px] text-gray-600'>(Inclusive of all taxes)</h1>
-              <button className=' uppercase  shadow text-green-700 text-[15px] upp bg-[#F7FFF9] font-medium p-[4px_20px] rounded-[10px] border border-green-600 cursor-pointer '>
+              <button onClick={Notifiy} className=' uppercase  shadow text-green-700 text-[15px] upp bg-[#F7FFF9] font-medium p-[4px_20px] rounded-[10px] border border-green-600 cursor-pointer '>
                 add
               </button>
             </div>
@@ -335,7 +336,7 @@ export default function Product() {
         </div>
       </div>
 
-
+      {/* mobile page */}
       <div className="block lg:hidden">
         <div className="slider w-[50%] md:w-[60%] mx-auto   ">
           <Slider {...settings2}>
@@ -512,10 +513,12 @@ export default function Product() {
 
 
           </Slider>
-
+          <CartBtn />
 
         </div>
       </div>
+
+
 
 
 

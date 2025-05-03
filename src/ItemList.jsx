@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 import { Link } from 'react-router-dom'
+import CartBtn from './Comman/CartBtn'
 
 import axios from 'axios';
 import { FaRupeeSign } from 'react-icons/fa';
@@ -86,7 +87,7 @@ export default function ItemList() {
             <div className="max-w-[1300px] w-[95%] mx-auto h-[80vh]  bg-[#F6F6F9]  ">
 
 
-                <div className="w-full h-full grid grid-cols-[30%_auto] sm:grid-cols-[20%_auto] md:grid-cols-[15%_auto] lg:grid-cols-[15%_auto]">
+                <div className="w-full h-full grid grid-cols-[25%_auto] sm:grid-cols-[20%_auto] md:grid-cols-[15%_auto] lg:grid-cols-[15%_auto]">
 
 
                     <div className=" overflow-y-scroll px-[5px] grid grid-cols-1 gap-[10px]">
@@ -99,7 +100,7 @@ export default function ItemList() {
 
                                 <div className="box" key={i}>
 
-                                    <h1 className={`${i == liActive ? "text-yellow-500 text-shadow-[0px_0px_2px_white] " : ""}  font-bold text-[16px] capitalize cursor-pointer hover:text-yellow-500`} onClick={() => DataFun(v, i)}> {v}  </h1>
+                                    <h2 className={`${i == liActive ? "text-yellow-500 text-shadow-[0px_0px_2px_white] " : ""}  font-bold text-[14px] lg:text-[16px] capitalize cursor-pointer hover:text-yellow-500`} onClick={() => DataFun(v, i)}> {v}  </h2>
 
                                 </div>
                             )
@@ -113,7 +114,7 @@ export default function ItemList() {
 
 
                     <div className=" overflow-y-scroll">
-                        <div className=" px-[30px] sm:px-[5px] py-[10px] desktop  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
+                        <div className=" px-[10px] sm:px-[5px] py-[10px] desktop  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
 
 
                             {
@@ -155,7 +156,7 @@ export default function ItemList() {
                                     <div className=" fixed top-2/4 left-3/6 ">
                                         <div className="loader"></div>
                                     </div>
-                                    
+
 
                             }
 
@@ -182,7 +183,10 @@ export default function ItemList() {
                 </div>
             </div> */}
 
+            <div className="block lg:hidden">
+                <CartBtn />
 
+            </div>
             <Footer />
         </>
     )

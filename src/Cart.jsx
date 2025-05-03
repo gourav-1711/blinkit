@@ -1,27 +1,46 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
-import { RxCross1 } from 'react-icons/rx'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { MdLibraryBooks } from 'react-icons/md'
 import { GiScooter } from 'react-icons/gi'
 import { FiInfo } from 'react-icons/fi'
 import { FaShoppingBag } from 'react-icons/fa'
+import { MyContext } from './Context/ContextProvider'
 
 export default function Cart() {
+
+    let { num, setNum } = useContext(MyContext)
+
+    const inc = ()=>{
+
+        setNum(num++)
+        
+        
+    }
+    const dec = ()=>{
+        if(num>=0){
+            setNum(num--)
+        }
+    }
+
+
+
     return (
         <>
             <Header />
 
             <div className="cart">
-                <div className={'z-[100] right-0 top-0 w-[98%] lg:w-[90%] mx-auto  bg-[#F5F7FD] py-[20px]  '}>
+                <div className='z-[100] right-0 top-0 w-[98%] lg:w-[90%] mx-auto  bg-[#F5F7FD] py-[20px]  '>
 
 
                     <div className="flex justify-between items-center p-4 bg-white rounded-2xl w-[97%] mx-auto  ">
                         <h1 className="text-[18px] font-bold text-gray-800">My Cart</h1>
-                        
+
                     </div>
 
+
+                    {/* item details */}
                     <div className=" p-2 lg:p-4 space-y-4">
                         <div className="bg-white rounded-lg p-4">
                             <div className="flex items-center gap-4">
@@ -36,30 +55,41 @@ export default function Cart() {
 
                             <div className="border-t border-gray-100 my-4"></div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-16 h-16 relative">
-                                        <img src="/images/21.jpeg" alt="" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium text-[14px] text-gray-800">Amul Salted Butter</h3>
-                                        <p className="text-gray-500 text-[12px]">100 g</p>
-                                        <p className="font-medium">₹60</p>
-                                    </div>
-                                </div>
 
-                                <div className="flex items-center bg-green-600 text-white rounded-md">
-                                    <button className="px-1 py-1 text-white cursor-pointer" aria-label="Decrease quantity" >
-                                        <AiOutlineMinus />
-                                    </button>
-                                    <span className="px-1 py-1"> 0 </span>
-                                    <button className="px-1 py-1 text-white cursor-pointer" aria-label="Increase quantity" >
-                                        <AiOutlinePlus />
-                                    </button>
+                                {/* product details */}
+                            <div className="products">
+
+                                {/* item 1 */}
+                                <div className="flex items-center justify-between py-2.5">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-16 h-16 relative">
+                                            <img src="/images/21.jpeg" alt="" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-[14px] text-gray-800">Amul Salted Butter</h3>
+                                            <p className="text-gray-500 text-[12px]">100 g</p>
+                                            <p className="font-medium">₹60</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center bg-green-600 text-white rounded-md">
+                                        <button onClick={dec} className="px-1 py-1 text-white cursor-pointer"  >
+                                            <AiOutlineMinus />
+                                        </button>
+                                        <span className="px-1 py-1"> {num} </span>
+                                        <button onClick={inc} className="px-1 py-1 text-white cursor-pointer" >
+                                            <AiOutlinePlus />
+                                        </button>
+                                    </div>
                                 </div>
+                                
+
                             </div>
+
                         </div>
 
+
+                        {/* bill  */}
                         <div className="bg-white rounded-lg p-4">
                             <h2 className="text-[16px] font-bold mb-4">Bill details</h2>
 
@@ -120,6 +150,8 @@ export default function Cart() {
                             </div>
                         </div>
                     </div>
+
+                    {/* button to buy */}
 
                     <div className="bg-white w-[90%] lg:w-[50%] right-0  p-[20px] rounded-2xl ms-5 ">
                         <div className="  cursor-pointer capitalize  bg-green-600  rounded-2xl py-[5px] flex justify-between text-white items-center px-[20px] ">

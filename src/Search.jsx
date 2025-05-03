@@ -7,6 +7,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FiInfo } from 'react-icons/fi'
 import { FaRupeeSign } from 'react-icons/fa'
 import axios from 'axios'
+import CartBtn from './Comman/CartBtn'
 
 export default function Search() {
 
@@ -208,6 +209,10 @@ export default function Search() {
                 </div>
             </div>
 
+            <div className="block lg:hidden">
+            <CartBtn/>
+
+            </div>
         </>
     )
 }

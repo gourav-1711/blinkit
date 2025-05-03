@@ -102,7 +102,7 @@ export default function Header() {
                 </nav>
 
 
-
+                {/* off canvas */}
 
                 <div className={`z-[100] offcanvas absolute right-0 top-0 w-[30%] h-screen bg-white overflow-y-scroll invisible opacity-0 ${offCanvas ? "active" : ""}   `}>
 
@@ -231,6 +231,9 @@ export default function Header() {
 
             </header>
 
+
+            {/* mobile header */}
+
             <header className="mobile z-50 block lg:hidden sticky top-0 bg-[white] shadow-[0px_0px_5px_1px_gray] pb-[10px] pt-[10px] ">
                 <nav className='  '>
                     <div className="flex justify-between">
@@ -248,17 +251,20 @@ export default function Header() {
                     </div>
 
                     <div className=" px-[20px] search overflow-hidden ">
+                    <Link to='/s/'>
                         <div className="flex items-center py-[5px] md:py-[10px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
                             <IoSearchSharp className=' text-[27px] ' />
-                            <Link to='/s/'>
+                            
                                 <input type="" className=' outline-0 border-0 ms-2  w-full relative ' />
 
-                            </Link>
+                            
                             <p className='  sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
                             <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
                         </div>
+                        </Link>
                     </div>
                 </nav>
+                
             </header>
 
 

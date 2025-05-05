@@ -44,9 +44,9 @@ export default function Cart() {
     useEffect(() => {
         setFilterCart(filter)
 
+       
+        
     }, [myCart])
-
-
 
 
     return (

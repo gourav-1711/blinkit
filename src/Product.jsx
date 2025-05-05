@@ -19,22 +19,18 @@ export default function Product() {
 
   let id = useParams()
 
-
-
-
-
-
   //single product api
-
   let api = `https://dummyjson.com/products/${id.id}`
 
   let [ProData, setProData] = useState([])
 
-
+  // thumbnail img
   let [BigImg, setBigImg] = useState()
+
+  // smaall imgs
   let [img, setImg] = useState([])
 
-
+  // main product api func
   let apiFun = () => {
 
     axios.get(api)
@@ -42,17 +38,14 @@ export default function Product() {
         setProData(ress.data);
         setImg(ress.data.images)
         setBigImg(ress.data.thumbnail)
-
-
+      })
+      .catch((err) => {
+        console.log(err);
 
       })
 
 
-
   }
-
-
-
 
   useEffect(() => {
     apiFun(), ProFun()
@@ -60,8 +53,8 @@ export default function Product() {
 
 
 
-
-  // related products api
+  // only on mobile
+  // related products api function
 
   let [relaData, SetrelaData] = useState([])
 
@@ -72,13 +65,15 @@ export default function Product() {
     axios.get(RelatedApi)
       .then((ress2) => {
         SetrelaData(ress2.data.products)
-        // console.log(RelatedApi);
+      })
+      .catch((err) => {
+        console.log(err);
+
       })
   }
 
 
 
-  // console.log(relaData);
 
 
 
@@ -152,7 +147,7 @@ export default function Product() {
   };
 
 
-
+  //  details section function
   let [details, setDetails] = useState(false)
   let open = () => {
     setDetails(!details)
@@ -176,9 +171,7 @@ export default function Product() {
 
 
   let addCart = () => {
-    
     setMyCart(old => [...old, cartObj])
-    
   }
 
 

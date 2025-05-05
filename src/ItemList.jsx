@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 import { Link } from 'react-router-dom'
@@ -6,11 +6,14 @@ import CartBtn from './Comman/CartBtn'
 
 import axios from 'axios';
 import { FaRupeeSign } from 'react-icons/fa';
+import { MyContext } from './Context/ContextProvider'
 
 
 
 
 export default function ItemList() {
+      let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
+    
 
     let [Data, setData] = useState([])
 
@@ -22,7 +25,7 @@ export default function ItemList() {
 
 
 
-
+    // api function
     let api;
 
     let DataFun = (v = "", i) => {
@@ -75,21 +78,43 @@ export default function ItemList() {
         DataFun()
     }, [])
 
+
+
+    let addCart = (name , price , thumbnail , id ,brand)=>{
+        let cartObj = {
+            id: id,
+            image: thumbnail,
+            title: name,
+            quantity: 1,
+            price: price,
+            brand: brand
+        
+          }
+          console.log(name,price,thumbnail,id,brand);
+    setMyCart(old => [...old, cartObj])
+          
+    }
+
     return (
         <>
             <div className="item">
                 <Header />
             </div>
+
+            {/* title */}
             <div className="max-w-[1300px]  w-[95%] mx-auto ">
-                <h1 className=' px-[20px] py-[4px] text-[12px] md:text-[14px] font-bold  capitalize '>buy milk online </h1>
+                <h1 className=' px-[20px] py-[4px] text-[12px] md:text-[14px] font-bold  capitalize '>buy Products online </h1>
 
             </div>
+
+
+            {/* item section */}
             <div className="max-w-[1300px] w-[95%] mx-auto h-[80vh]  bg-[#F6F6F9]  ">
 
 
                 <div className="w-full h-full grid grid-cols-[25%_auto] sm:grid-cols-[20%_auto] md:grid-cols-[15%_auto] lg:grid-cols-[15%_auto]">
 
-
+                        {/* category */}
                     <div className=" overflow-y-scroll px-[5px] grid grid-cols-1 gap-[10px]">
 
 
@@ -112,9 +137,9 @@ export default function ItemList() {
 
                     </div>
 
-
+                        {/* products */}
                     <div className=" overflow-y-scroll">
-                        <div className=" px-[10px] sm:px-[5px] py-[10px] desktop  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
+                        <div className=" px-[10px] sm:px-[5px] py-[10px] desktop  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
 
 
                             {
@@ -144,7 +169,7 @@ export default function ItemList() {
                                                     <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
                                                         <FaRupeeSign /> {v.price}
                                                     </h1>
-                                                    <button className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                                                    <button onClick={()=> addCart(v.title , v.price , v.thumbnail,v.id,v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
                                                         add
                                                     </button>
                                                 </div>
@@ -153,7 +178,7 @@ export default function ItemList() {
 
                                     })
                                     :
-                                    <div className=" fixed top-2/4 left-3/6 ">
+                                    <div className=" absolute mt-[200px] top-2/4 left-3/6 ">
                                         <div className="loader"></div>
                                     </div>
 
@@ -166,6 +191,9 @@ export default function ItemList() {
 
                 </div>
             </div>
+
+
+            {/* items description */}
             {/* <div className="footer-2 bg-[#ffffff] max-w-[1300px] w-[95%] mx-auto shadow">
                 <div className="w-[87%] mx-auto pt-[30px]">
                     <div className="text-[#666666] text-[15px] md:text-[24px] font-extrabold uppercase ">
@@ -183,6 +211,8 @@ export default function ItemList() {
                 </div>
             </div> */}
 
+
+            {/* cart btn on mobile */}
             <div className="block lg:hidden">
                 <CartBtn />
 

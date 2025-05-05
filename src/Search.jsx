@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IoSearchSharp } from 'react-icons/io5'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import { Link } from 'react-router-dom'
@@ -8,10 +8,12 @@ import { FiInfo } from 'react-icons/fi'
 import { FaRupeeSign } from 'react-icons/fa'
 import axios from 'axios'
 import CartBtn from './Comman/CartBtn'
+import { MyContext } from './Context/ContextProvider'
 
 export default function Search() {
 
 
+      let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
 
 
     /////////////////////////////
@@ -84,6 +86,23 @@ export default function Search() {
     useEffect(()=>{
        let input =  document.querySelector("s-input")
     })
+
+
+    // add to cart 
+    let addCart = (name , price , thumbnail , id ,brand)=>{
+        let cartObj = {
+            id: id,
+            image: thumbnail,
+            title: name,
+            quantity: 1,
+            price: price,
+            brand: brand
+        
+          }
+          console.log(name,price,thumbnail,id,brand);
+    setMyCart(old => [...old, cartObj])
+          
+    }
 
 
     return (
@@ -186,7 +205,7 @@ export default function Search() {
                                                     <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
                                                         <FaRupeeSign /> {v.price}
                                                     </h1>
-                                                    <button className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                                                    <button onClick={()=> addCart(v.title , v.price , v.thumbnail,v.id,v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
                                                         add
                                                     </button>
                                                 </div>

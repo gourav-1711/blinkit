@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
@@ -9,24 +9,44 @@ import { FaShoppingBag } from 'react-icons/fa'
 import { MyContext } from './Context/ContextProvider'
 
 export default function Cart() {
+    // cart
+    let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
 
     let { num, setNum } = useContext(MyContext)
 
-    const inc = ()=>{
+    const inc = () => {
 
         setNum(num++)
-        
-        
+
+
     }
-    const dec = ()=>{
-        if(num>=0){
+    const dec = () => {
+        if (num >= 0) {
             setNum(num--)
         }
     }
 
 
-    // cart
-    let {myCart , setMyCart} = useContext(MyContext)
+
+
+    
+    const removeDuplicates = (arr, key) => {
+        const seen = new Set();
+        return arr.filter(item => {
+            const keyValue = key ? item[key] : item;
+            return seen.has(keyValue) ? false : seen.add(keyValue);
+        });
+    };
+
+    const filter = removeDuplicates(myCart, 'id');
+
+    
+    useEffect(() => {
+        setFilterCart(filter)
+
+    }, [myCart])
+
+
 
 
     return (
@@ -59,35 +79,50 @@ export default function Cart() {
                             <div className="border-t border-gray-100 my-4"></div>
 
 
-                                {/* product details */}
+                            {/* product details */}
                             <div className="products">
 
-                                
+                                {/* items */}
 
-                                {/* item 1 */}
-                                <div className="flex items-center justify-between py-2.5">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-16 h-16 relative">
-                                            <img src="/images/21.jpeg" alt="" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-medium text-[14px] text-gray-800">Amul Salted Butter</h3>
-                                            <p className="text-gray-500 text-[12px]">100 g</p>
-                                            <p className="font-medium">₹60</p>
-                                        </div>
-                                    </div>
+                                {
+                                    filterCart.length > 0 ?
+                                    filterCart.map((v, i) => {
+                                            return (
 
-                                    <div className="flex items-center bg-green-600 text-white rounded-md">
-                                        <button onClick={dec} className="px-1 py-1 text-white cursor-pointer"  >
-                                            <AiOutlineMinus />
-                                        </button>
-                                        <span className="px-1 py-1"> {num} </span>
-                                        <button onClick={inc} className="px-1 py-1 text-white cursor-pointer" >
-                                            <AiOutlinePlus />
-                                        </button>
-                                    </div>
-                                </div>
-                                
+                                                <div key={i} className="flex items-center justify-between py-2.5">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-16 h-16 relative">
+                                                            <img src={v.image} alt="" />
+                                                        </div>
+                                                        <div>
+                                                            <h3 className="font-medium text-[14px] text-gray-800"> {v.title} </h3>
+                                                            <p className="text-gray-500 text-[12px]"> {
+                                                                v.brand} </p>
+                                                            <p className="font-medium">₹ {v.price}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex items-center bg-green-600 text-white rounded-md">
+                                                        <button onClick={dec} className="px-1 py-1 text-white cursor-pointer"  >
+                                                            <AiOutlineMinus />
+                                                        </button>
+                                                        <span className="px-1 py-1"> {v.quantity} </span>
+                                                        <button onClick={inc} className="px-1 py-1 text-white cursor-pointer" >
+                                                            <AiOutlinePlus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            )
+
+                                        })
+                                        :
+                                        <div className=" text-2xl capitalize text-center">
+                                            No items in cart
+                                        </div>
+                                }
+
+
 
                             </div>
 

@@ -19,6 +19,11 @@ export default function Product() {
 
   let id = useParams()
 
+
+
+
+
+
   //single product api
 
   let api = `https://dummyjson.com/products/${id.id}`
@@ -157,44 +162,30 @@ export default function Product() {
 
   // cart function
 
-  let { myCart, setMyCart } = useContext(MyContext)
-
+  let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
 
   let cartObj = {
     id: ProData.id,
     image: ProData.thumbnail,
     title: ProData.title,
     quantity: 1,
+    price: ProData.price,
+    brand: ProData.brand
 
   }
 
 
   let addCart = () => {
-
-    myCart.push(cartObj)
-    myCart.filter((value) => {
-      if (value.id == cartObj.id) {
-        console.log(value.id, cartObj.id);
-
-      }
-      else {
-        
-        toast.success("Wow so easy!")
-
-      }
-    })
-
-    console.log(myCart);
-
-
-
-
+    
+    setMyCart(old => [...old, cartObj])
+    
   }
+
 
 
   return (
     <>
-
+      {/* notification */}
       <ToastContainer />
 
       <Header />
@@ -212,6 +203,7 @@ export default function Product() {
 
                 <div className="bigImg">
                   <div className="mb-8 mx-auto flex justify-center " >
+
                     <ImageMagnifier
                       src={BigImg}
                       width={500}
@@ -225,7 +217,7 @@ export default function Product() {
                 </div>
 
                 <div className="smallImgs grid grid-cols-6  w-[70%] mx-auto gap-[5px]">
-
+                  {/* small image */}
                   {
                     img.length > 0 ?
                       img.map((v, i) => {
@@ -235,11 +227,10 @@ export default function Product() {
                       })
                       : <div className="loader"></div>
                   }
-
-
                 </div>
               </div>
 
+              {/* product details  */}
               <div className="details mt-[50px] bg-[#FFFFFF] px-[20px]">
                 <h1 className=' text-[24px]  capitalize font-medium pb-[20px]'> product details</h1>
                 <h2 className="text-[14px]  uppercase font-medium py-[5px]"> {ProData.title} </h2>
@@ -286,7 +277,7 @@ export default function Product() {
 
           </div>
 
-
+          {/* product tittle and add to cart desktop */}
           <div className=" px-[40px]  ">
             <div className="top pt-[40px] ">
               <ul className=' flex gap-[5px] capitalize text-[13px] font-medium '>
@@ -374,7 +365,7 @@ export default function Product() {
         </div>
       </div>
 
-      {/* mobile page */}
+      {/* mobile add to cart page */}
       <div className="block lg:hidden">
         <div className="slider w-[50%] md:w-[60%] mx-auto   ">
           <Slider {...settings2}>
@@ -412,7 +403,7 @@ export default function Product() {
             </p>
           </h1>
         </div>
-        \
+
         <div className="mt-[10px]  px-[20px]">
           <button className=' capitalize shadow text-gray-900 text-[14px] bg-[#F7FFF9] font-medium p-[6px_12px] rounded-[10px] border border-green-600 cursor-pointer '>
             {ProData.minimumOrderQuantity}
@@ -427,7 +418,7 @@ export default function Product() {
 
           <div className="flex justify-between  ">
             <span className='flex items-center uppercase'> mrp <FaRupeeSign /> {ProData.price} </span>
-            <button type="button" className=" uppercase  focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">add to cart</button>
+            <button type="button" onClick={addCart} className=" uppercase  focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">add to cart</button>
           </div>
 
           <h1 className='font-medium text-[10px] text-gray-600'>(Inclusive of all taxes)</h1>
@@ -515,7 +506,7 @@ export default function Product() {
                 relaData.map((v, i) => {
                   return (
                     <div className=" bg-[white] shadow-[0px_0px_5px_1px_#d5d5d590] border border-[#a7a7a782] rounded-[5px]   px-[10px] py-[10px]  " key={i}>
-                      <Link to={`/product/${v.category}/${v.id}`}  >
+                      <Link to={`/product/${v.category}/${v.id}`}   >
                         <div className="cursor-pointor">
                           <img src={v.thumbnail} alt="" />
                         </div>

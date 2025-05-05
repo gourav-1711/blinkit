@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaShoppingBag, FaSortDown } from 'react-icons/fa'
 import { IoSearchSharp } from 'react-icons/io5'
 import { MdLibraryBooks, MdOutlineShoppingCart } from "react-icons/md";
@@ -43,7 +43,17 @@ export default function Header() {
 
     // cart
 
-    let {myCart , setMyCart} = useContext(MyContext)
+    let {myCart , setMyCart ,filterCart} = useContext(MyContext)
+
+
+    // cart length func 
+    let [cartLength , setCartLength] = useState(0)
+    
+    useEffect(()=>{
+        setCartLength(filterCart.length)
+    },[myCart])
+
+    
     return (
         <>
             {/* dropdown overlay */}
@@ -102,9 +112,9 @@ export default function Header() {
                     </div>
                     <div className="">
                         <button onClick={offCan} className=" relative cursor-pointer flex items-center gap-[5px] bg-[green] p-[10px] rounded-[10px]">
-                            <span className='text-[30px] invert-100'><MdOutlineShoppingCart /></span><span className='text-[white] capitalize font-bold'>my cart</span>
+                        <span className='text-[30px] invert-100'><MdOutlineShoppingCart /></span><span className='text-[white] capitalize font-bold'>my cart {cartLength}</span>
                         </button>
-                        <div className=" absolute top-[5%] right-[2.5%] text-2xl text-white bg-green-900 rounded-2xl px-2"> {myCart.lenght} 4 </div>
+                        
                     </div>
                 </nav>
 

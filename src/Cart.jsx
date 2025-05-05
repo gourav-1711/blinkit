@@ -1,52 +1,26 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from './Comman/Header'
 import Footer from './Comman/Footer'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { MdLibraryBooks } from 'react-icons/md'
 import { GiScooter } from 'react-icons/gi'
 import { FiInfo } from 'react-icons/fi'
-import { FaShoppingBag } from 'react-icons/fa'
+import { FaArrowLeft, FaShoppingBag } from 'react-icons/fa'
 import { MyContext } from './Context/ContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 export default function Cart() {
     // cart
-    let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
+    let { myCart, setMyCart } = useContext(MyContext)
 
     let { num, setNum } = useContext(MyContext)
 
-    const inc = () => {
-
-        setNum(num++)
 
 
-    }
-    const dec = () => {
-        if (num >= 0) {
-            setNum(num--)
-        }
-    }
+    // back navigation
 
-
-
-
-    
-    const removeDuplicates = (arr, key) => {
-        const seen = new Set();
-        return arr.filter(item => {
-            const keyValue = key ? item[key] : item;
-            return seen.has(keyValue) ? false : seen.add(keyValue);
-        });
-    };
-
-    const filter = removeDuplicates(myCart, 'id');
-
-    
-    useEffect(() => {
-        setFilterCart(filter)
-
-       
-        
-    }, [myCart])
+    const navigate = useNavigate();
+    const onClickBack = () => navigate(-1)
 
 
     return (
@@ -57,7 +31,8 @@ export default function Cart() {
                 <div className='z-[100] right-0 top-0 w-[98%] lg:w-[90%] mx-auto  bg-[#F5F7FD] py-[20px]  '>
 
 
-                    <div className="flex justify-between items-center p-4 bg-white rounded-2xl w-[97%] mx-auto  ">
+                    <div className="flex gap-1.5 items-center p-4 bg-white rounded-2xl w-[97%] mx-auto  ">
+                        <span onClick={onClickBack} className=' text-2xl cursor-pointer'> <FaArrowLeft /></span>
                         <h1 className="text-[18px] font-bold text-gray-800">My Cart</h1>
 
                     </div>
@@ -65,14 +40,17 @@ export default function Cart() {
 
                     {/* item details */}
                     <div className=" p-2 lg:p-4 space-y-4">
+
                         <div className="bg-white rounded-lg p-4">
+
+                            {/* shipment */}
                             <div className="flex items-center gap-4">
                                 <div className="bg-gray-100 rounded-[10px] p-3">
                                     <img src='/images/15-mins.png' className="text-green-700 w-10 " />
                                 </div>
                                 <div>
                                     <h2 className="text-[16px] font-bold">Delivery in 8 minutes</h2>
-                                    <p className="text-gray-500 text-[15px]">Shipment of 1 item</p>
+                                    <p className="text-gray-500 text-[15px]">Shipment of {myCart.length} item</p>
                                 </div>
                             </div>
 
@@ -85,34 +63,12 @@ export default function Cart() {
                                 {/* items */}
 
                                 {
-                                    filterCart.length > 0 ?
-                                    filterCart.map((v, i) => {
+                                    myCart.length > 0 ?
+
+                                        myCart.map((v, i) => {
                                             return (
 
-                                                <div key={i} className="flex items-center justify-between py-2.5">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-16 h-16 relative">
-                                                            <img src={v.image} alt="" />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="font-medium text-[14px] text-gray-800"> {v.title} </h3>
-                                                            <p className="text-gray-500 text-[12px]"> {
-                                                                v.brand} </p>
-                                                            <p className="font-medium">₹ {v.price}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="flex items-center bg-green-600 text-white rounded-md">
-                                                        <button onClick={dec} className="px-1 py-1 text-white cursor-pointer"  >
-                                                            <AiOutlineMinus />
-                                                        </button>
-                                                        <span className="px-1 py-1"> {v.quantity} </span>
-                                                        <button onClick={inc} className="px-1 py-1 text-white cursor-pointer" >
-                                                            <AiOutlinePlus />
-                                                        </button>
-                                                    </div>
-                                                </div>
-
+                                                <CartBox v={v} key={i} />
                                             )
 
                                         })
@@ -192,7 +148,6 @@ export default function Cart() {
                     </div>
 
                     {/* button to buy */}
-
                     <div className="bg-white w-[90%] lg:w-[50%] right-0  p-[20px] rounded-2xl ms-5 ">
                         <div className="  cursor-pointer capitalize  bg-green-600  rounded-2xl py-[5px] flex justify-between text-white items-center px-[20px] ">
                             <div className="total font-bold flex flex-col items-center">
@@ -208,6 +163,53 @@ export default function Cart() {
             </div>
 
             <Footer />
+        </>
+    )
+}
+
+
+let CartBox = ({ v }) => {
+
+
+    // quantity increase function 
+    let [quantity, setQuantity] = useState(v.quantity)
+
+
+    const dec = () => {
+        if (v.quantity > 1) {
+            setQuantity(v.quantity--)
+        }
+    }
+    const inc = () => {
+        setQuantity(v.quantity++)
+    }
+    // console.log(v);
+
+    return (
+        <>
+            <div className="flex items-center justify-between py-2.5">
+                <div className="flex items-center gap-3">
+                    <div className="w-16 h-16 relative">
+                        <img src={v.image} alt="" />
+                    </div>
+                    <div>
+                        <h3 className="font-medium text-[14px] text-gray-800"> {v.title} </h3>
+                        <p className="text-gray-500 text-[12px]"> {
+                            v.brand} </p>
+                        <p className="font-medium">₹ {v.price}</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center bg-green-600 text-white rounded-md">
+                    <button onClick={dec} className="px-1 py-1 text-white cursor-pointer"  >
+                        <AiOutlineMinus />
+                    </button>
+                    <span className="px-1 py-1"> {quantity} </span>
+                    <button onClick={inc} className="px-1 py-1 text-white cursor-pointer" >
+                        <AiOutlinePlus />
+                    </button>
+                </div>
+            </div>
         </>
     )
 }

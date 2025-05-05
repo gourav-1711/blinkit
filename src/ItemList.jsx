@@ -7,13 +7,14 @@ import CartBtn from './Comman/CartBtn'
 import axios from 'axios';
 import { FaRupeeSign } from 'react-icons/fa';
 import { MyContext } from './Context/ContextProvider'
+import { Bounce, Slide, ToastContainer } from 'react-toastify'
 
 
 
 
 export default function ItemList() {
-      let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
-    
+    let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
+
 
     let [Data, setData] = useState([])
 
@@ -80,7 +81,7 @@ export default function ItemList() {
 
 
 
-    let addCart = (name , price , thumbnail , id ,brand)=>{
+    let addCart = (name, price, thumbnail, id, brand) => {
         let cartObj = {
             id: id,
             image: thumbnail,
@@ -88,18 +89,39 @@ export default function ItemList() {
             quantity: 1,
             price: price,
             brand: brand
-        
-          }
-          console.log(name,price,thumbnail,id,brand);
-    setMyCart(old => [...old, cartObj])
-          
+        }
+        let isCart = myCart.some(item => item.id === cartObj.id)
+        if (!isCart) {
+            setMyCart(old => [...old, cartObj])
+            toast.success("item added")
+
+        }
+        else {
+            toast.error("item already in cart")
+        }
+
     }
 
     return (
         <>
-            <div className="item">
-                <Header />
-            </div>
+
+            {/* toast */}
+            <ToastContainer
+                position="top-right"
+                limit={2}
+                autoClose={200}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+
+            <Header />
 
             {/* title */}
             <div className="max-w-[1300px]  w-[95%] mx-auto ">
@@ -114,7 +136,7 @@ export default function ItemList() {
 
                 <div className="w-full h-full grid grid-cols-[25%_auto] sm:grid-cols-[20%_auto] md:grid-cols-[15%_auto] lg:grid-cols-[15%_auto]">
 
-                        {/* category */}
+                    {/* category */}
                     <div className=" overflow-y-scroll px-[5px] grid grid-cols-1 gap-[10px]">
 
 
@@ -137,7 +159,7 @@ export default function ItemList() {
 
                     </div>
 
-                        {/* products */}
+                    {/* products */}
                     <div className=" overflow-y-scroll">
                         <div className=" px-[10px] sm:px-[5px] py-[10px] desktop  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] lg:gap-[15px] relative ">
 
@@ -169,7 +191,7 @@ export default function ItemList() {
                                                     <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
                                                         <FaRupeeSign /> {v.price}
                                                     </h1>
-                                                    <button onClick={()=> addCart(v.title , v.price , v.thumbnail,v.id,v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                                                    <button onClick={() => addCart(v.title, v.price, v.thumbnail, v.id, v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
                                                         add
                                                     </button>
                                                 </div>

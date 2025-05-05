@@ -9,6 +9,7 @@ import { FaRupeeSign } from 'react-icons/fa'
 import axios from 'axios'
 import CartBtn from './Comman/CartBtn'
 import { MyContext } from './Context/ContextProvider'
+import { Bounce, Slide, toast, ToastContainer } from 'react-toastify'
 
 export default function Search() {
 
@@ -89,7 +90,7 @@ export default function Search() {
 
 
     // add to cart 
-    let addCart = (name , price , thumbnail , id ,brand)=>{
+    let addCart = (name, price, thumbnail, id, brand) => {
         let cartObj = {
             id: id,
             image: thumbnail,
@@ -97,16 +98,40 @@ export default function Search() {
             quantity: 1,
             price: price,
             brand: brand
-        
-          }
-          console.log(name,price,thumbnail,id,brand);
-    setMyCart(old => [...old, cartObj])
-          
+        }
+        let isCart = myCart.some(item => item.id === cartObj.id)
+        if (!isCart) {
+            setMyCart(old => [...old, cartObj])
+            toast.success("item added")
+        }
+        else {
+            toast.error("item already in cart")
+        }
+
     }
 
 
     return (
         <>
+
+        {/* toast */}
+
+
+        <ToastContainer
+        position="top-right"
+        limit={2}
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+
             <header className=" z-50 max-w-full w-full hidden lg:block  border border-[#c7c7c77e] sticky top-0 bg-[white] ">
                 <nav className=" grid  grid-cols-[15%_auto_15%] gap-[15px] items-center ">
                     <Link to='/' >

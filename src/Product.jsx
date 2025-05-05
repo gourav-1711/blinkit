@@ -11,7 +11,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
 import ImageMagnifier from './Comman/Magnify';
 import { MyContext } from './Context/ContextProvider';
-import { toast, ToastContainer } from 'react-toastify';
+import { Bounce, Slide, toast, ToastContainer } from 'react-toastify';
 
 export default function Product() {
 
@@ -171,7 +171,16 @@ export default function Product() {
 
 
   let addCart = () => {
-    setMyCart(old => [...old, cartObj])
+    let isCart = myCart.some(item => item.id === cartObj.id)
+    if (!isCart) {
+      setMyCart(old => [...old, cartObj])
+      toast.success("item added")
+
+    }
+    else {
+      toast.error("item already in cart")
+    }
+
   }
 
 
@@ -179,7 +188,20 @@ export default function Product() {
   return (
     <>
       {/* notification */}
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        limit={2}
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
 
       <Header />
 

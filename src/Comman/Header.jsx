@@ -43,17 +43,11 @@ export default function Header() {
 
     // cart
 
-    let {myCart , setMyCart ,filterCart} = useContext(MyContext)
+    let { myCart, setMyCart } = useContext(MyContext)
 
 
-    // cart length func 
-    let [cartLength , setCartLength] = useState(0)
-    
-    useEffect(()=>{
-        setCartLength(filterCart.length)
-    },[myCart])
 
-    
+
     return (
         <>
             {/* dropdown overlay */}
@@ -112,9 +106,9 @@ export default function Header() {
                     </div>
                     <div className="">
                         <button onClick={offCan} className=" relative cursor-pointer flex items-center gap-[5px] bg-[green] p-[10px] rounded-[10px]">
-                        <span className='text-[30px] invert-100'><MdOutlineShoppingCart /></span><span className='text-[white] capitalize font-bold'>my cart {cartLength}</span>
+                            <span className='text-[30px] invert-100'><MdOutlineShoppingCart /></span><span className='text-[white] capitalize font-bold'>my cart {myCart.length}</span>
                         </button>
-                        
+
                     </div>
                 </nav>
 
@@ -145,28 +139,28 @@ export default function Header() {
 
                             <div className="border-t border-gray-100 my-4"></div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-16 h-16 relative">
-                                        <img src="/images/21.jpeg" alt="" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium text-[14px] text-gray-800">Amul Salted Butter</h3>
-                                        <p className="text-gray-500 text-[12px]">100 g</p>
-                                        <p className="font-medium">₹60</p>
-                                    </div>
-                                </div>
 
-                                <div className="flex items-center bg-green-600 text-white rounded-md">
-                                    <button className="px-1 py-1 text-white cursor-pointer" aria-label="Decrease quantity" onClick={dec}>
-                                        <AiOutlineMinus />
-                                    </button>
-                                    <span className="px-1 py-1"> {count} </span>
-                                    <button className="px-1 py-1 text-white cursor-pointer" aria-label="Increase quantity" onClick={inc}>
-                                        <AiOutlinePlus />
-                                    </button>
-                                </div>
+                            {/* all products */}
+                            <div className={` space-y-1 ${myCart.length > 1 ? "h-[200px]" : "h-auto"} overflow-y-scroll`}>
+                                {/* item 1 */}
+                                {
+                                    myCart.length > 0 ?
+
+                                        myCart.map((v, i) => {
+                                            return (
+
+                                                <CartBox v={v} key={i} />
+                                            )
+
+                                        })
+                                        :
+                                        <div className=" text-2xl capitalize text-center">
+                                            No items in cart
+                                        </div>
+                                }
                             </div>
+
+
                         </div>
 
                         <div className="bg-white rounded-lg p-4">
@@ -268,23 +262,62 @@ export default function Header() {
                     </div>
 
                     <div className=" px-[20px] search overflow-hidden ">
-                    <Link to='/s/'>
-                        <div className="flex items-center py-[5px] md:py-[10px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
-                            <IoSearchSharp className=' text-[27px] ' />
-                            
+                        <Link to='/s/'>
+                            <div className="flex items-center py-[5px] md:py-[10px] px-[10px] rounded-[18px] bg-[#F8F8F8] relative  ">
+                                <IoSearchSharp className=' text-[27px] ' />
+
                                 <input type="" className=' outline-0 border-0 ms-2  w-full relative ' />
 
-                            
-                            <p className='  sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
-                            <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
-                        </div>
+
+                                <p className='  sText absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "chips" </p>
+                                <p className=' sText2 absolute bottom-[50%] capitalize font-medium text-[#a1a1a1] '> search "milk" </p>
+                            </div>
                         </Link>
                     </div>
                 </nav>
-                
+
             </header>
 
 
+        </>
+    )
+}
+
+
+let CartBox = ({ v }) => {
+
+
+    // quantity increase function 
+    let [quantity, setQuantity] = useState(v.quantity)
+
+
+    
+
+    return (
+        <>
+            <div className="flex items-center justify-between py-2.5">
+                <div className="flex items-center gap-3">
+                    <div className="w-16 h-16 relative">
+                        <img src={v.image} alt="" />
+                    </div>
+                    <div>
+                        <h3 className="font-medium text-[14px] text-gray-800"> {v.title} </h3>
+                        <p className="text-gray-500 text-[12px]"> {
+                            v.brand} </p>
+                        <p className="font-medium">₹ {v.price}</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center bg-green-600 text-white rounded-md">
+                    <button  className="px-1 py-1 text-white cursor-pointer"  >
+                        <AiOutlineMinus />
+                    </button>
+                    <span className="px-1 py-1"> {quantity} </span>
+                    <button  className="px-1 py-1 text-white cursor-pointer" >
+                        <AiOutlinePlus />
+                    </button>
+                </div>
+            </div>
         </>
     )
 }

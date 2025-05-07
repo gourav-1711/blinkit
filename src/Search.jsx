@@ -14,7 +14,7 @@ import { Bounce, Slide, toast, ToastContainer } from 'react-toastify'
 export default function Search() {
 
 
-      let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
+    let { myCart, setMyCart, filterCart, setFilterCart } = useContext(MyContext)
 
 
     /////////////////////////////
@@ -84,8 +84,8 @@ export default function Search() {
         Apifun()
     }, [sValue])
 
-    useEffect(()=>{
-       let input =  document.querySelector("s-input")
+    useEffect(() => {
+        let input = document.querySelector("s-input")
     })
 
 
@@ -114,24 +114,23 @@ export default function Search() {
     return (
         <>
 
-        {/* toast */}
+            {/* toast */}
+           <ToastContainer
+                position="top-right"
+                limit={2}
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
 
-
-        <ToastContainer
-        position="top-right"
-        limit={2}
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
-
+            {/* desktop header */}
             <header className=" z-50 max-w-full w-full hidden lg:block  border border-[#c7c7c77e] sticky top-0 bg-[white] ">
                 <nav className=" grid  grid-cols-[15%_auto_15%] gap-[15px] items-center ">
                     <Link to='/' >
@@ -152,14 +151,11 @@ export default function Search() {
                         </div>
                     </div>
 
-                    
+
                 </nav>
             </header>
 
-           
-
-                
-
+            {/* mobile header */}
             <header className="p-[20px] block lg:hidden">
                 <div className="  search overflow-hidden  ">
                     <div className="flex items-center py-[15px] px-[10px] rounded-[18px] border bg-[#fcfcfc] relative  ">
@@ -174,12 +170,8 @@ export default function Search() {
                 </div>
             </header>
 
-
            
-
-            {/* api data */}
-
-
+            {/* search section */}  {/* api data */}
             <div className="max-w-[1150px] px-[30px] md:px-[10px] lg:px-[5px] mx-auto">
 
 
@@ -230,7 +222,7 @@ export default function Search() {
                                                     <h1 className='text-[rgb(31,31,31)] flex items-center font-medium text-[14px]'>
                                                         <FaRupeeSign /> {v.price}
                                                     </h1>
-                                                    <button onClick={()=> addCart(v.title , v.price , v.thumbnail,v.id,v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
+                                                    <button onClick={() => addCart(v.title, v.price, v.thumbnail, v.id, v.brand)} className=" cursor-pointer uppercase bg-[#F7FFF9] border-1 rounded-[10px] p-[5px_15px] border-[#0C831F]">
                                                         add
                                                     </button>
                                                 </div>
@@ -253,9 +245,10 @@ export default function Search() {
                 </div>
             </div>
 
-            <div className="block lg:hidden">
-            <CartBtn/>
 
+            {/* cart btn */}
+            <div className="block lg:hidden">
+                <CartBtn />
             </div>
         </>
     )

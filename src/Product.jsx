@@ -191,7 +191,7 @@ export default function Product() {
       <ToastContainer
         position="top-right"
         limit={2}
-        autoClose={3000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}

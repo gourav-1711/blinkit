@@ -7,7 +7,7 @@ import CartBtn from './Comman/CartBtn'
 import axios from 'axios';
 import { FaRupeeSign } from 'react-icons/fa';
 import { MyContext } from './Context/ContextProvider'
-import { Bounce, Slide, ToastContainer } from 'react-toastify'
+import { Bounce, Slide, toast, ToastContainer } from 'react-toastify'
 
 
 
@@ -109,7 +109,7 @@ export default function ItemList() {
             <ToastContainer
                 position="top-right"
                 limit={2}
-                autoClose={200}
+                autoClose={1500}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

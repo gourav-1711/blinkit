@@ -33,19 +33,19 @@ export default function Header() {
         }
     }
 
-    let [drop, setdrop] = useState(false)
-
-    let dropdown = () => {
-        setdrop(!drop)
-
-    }
+    
 
 
     // cart
 
     let { myCart, setMyCart } = useContext(MyContext)
 
+   let [drop, setdrop] = useState(false)
 
+    let dropdown = () => {
+        setdrop(!drop)
+
+    }
 
     return (
         <>
@@ -389,14 +389,16 @@ let Bil = () => {
             </div>
 
             {/* button to buy */}
-            <div className="bg-white w-[90%] lg:w-[50%] right-0  p-[20px] rounded-2xl ms-5 ">
-                <div className="  cursor-pointer capitalize  bg-green-600  rounded-2xl py-[5px] flex justify-between text-white items-center px-[20px] ">
-                    <div className="total font-bold flex flex-col items-center">
-                        <div className="">{(price + gst + delCharge).toFixed(2)}</div>
-                        <div className=" font-light">total</div>
+            <div className="bg-white w-[100%] lg:w-[100%] right-0  p-[20px] rounded-2xl ">
+                <Link to='/cart'>
+                    <div className="  cursor-pointer capitalize  bg-green-600  rounded-2xl py-[5px] flex justify-between text-white items-center px-[20px] ">
+                        <div className="total font-bold flex flex-col items-center">
+                            <div className="">{(price + gst + delCharge).toFixed(2)}</div>
+                            <div className=" font-light">total</div>
+                        </div>
+                        <div className="">proceed to pay</div>
                     </div>
-                    <div className="">proceed to pay</div>
-                </div>
+                </Link>
             </div>
         </>
     )
